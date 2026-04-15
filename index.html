@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Kunj Bhasin — AI & Autonomous Systems Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --pink: #ff6ec7;
+    --lavender: #b794f4;
+    --blue: #00eaff;
+    --deep: #0a0514;
+    --card-bg: rgba(255,255,255,0.04);
+    --glass: rgba(255,255,255,0.06);
+    --border: rgba(183,148,244,0.2);
+    --text: #f0eaff;
+    --muted: rgba(240,234,255,0.5);
+    --font-display: 'Cormorant Garamond', serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-mono: 'Space Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--deep);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom Cursor */
+  .cursor {
+    position: fixed; top: 0; left: 0; width: 12px; height: 12px;
+    background: var(--pink); border-radius: 50%; pointer-events: none;
+    z-index: 9999; transition: transform 0.15s ease, background 0.3s;
+    mix-blend-mode: screen;
+  }
+  .cursor-ring {
+    position: fixed; top: 0; left: 0; width: 36px; height: 36px;
+    border: 1px solid rgba(183,148,244,0.5); border-radius: 50%;
+    pointer-events: none; z-index: 9998;
+    transition: transform 0.3s ease, width 0.3s, height 0.3s;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 24px 60px;
+    background: rgba(10,5,20,0.7);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .nav-logo {
+    font-family: var(--font-display); font-size: 22px; font-weight: 600;
+    background: linear-gradient(90deg, var(--pink), var(--lavender));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: 0.02em;
+  }
+  .nav-links { display: flex; gap: 40px; list-style: none; }
+  .nav-links a {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; color: var(--muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  /* SECTIONS */
+  section { min-height: 100vh; position: relative; overflow: hidden; }
+
+  /* ─────────────────────────────────────────
+     HERO
+  ───────────────────────────────────────── */
+  #home {
+    display: flex; align-items: center; justify-content: center;
+    text-align: center; padding: 120px 40px 80px;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 30%, rgba(183,148,244,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 40% at 20% 80%, rgba(255,110,199,0.12) 0%, transparent 60%),
+                radial-gradient(ellipse 60% 50% at 80% 60%, rgba(0,234,255,0.08) 0%, transparent 60%);
+    animation: heroShift 10s ease-in-out infinite alternate;
+  }
+  @keyframes heroShift {
+    0%  { background-position: 0% 0%; }
+    100%{ background-position: 100% 100%; }
+  }
+
+  /* Floating orbs */
+  .orb {
+    position: absolute; border-radius: 50%; filter: blur(60px); animation: float 8s ease-in-out infinite;
+  }
+  .orb-1 { width:320px;height:320px; background:rgba(255,110,199,0.12); top:-60px; left:-100px; animation-delay:0s; }
+  .orb-2 { width:240px;height:240px; background:rgba(183,148,244,0.15); bottom:80px; right:-80px; animation-delay:3s; }
+  .orb-3 { width:180px;height:180px; background:rgba(0,234,255,0.08); top:40%; right:15%; animation-delay:6s; }
+
+  @keyframes float {
+    0%,100%{ transform: translateY(0) scale(1); }
+    50%    { transform: translateY(-30px) scale(1.05); }
+  }
+
+  /* Particles */
+  .particles { position:absolute; inset:0; z-index:1; pointer-events:none; }
+  .particle {
+    position:absolute; border-radius:50%;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    0%   { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-10vh) rotate(720deg); opacity: 0; }
+  }
+
+  .hero-content { position:relative; z-index:2; max-width:800px; }
+
+  .hero-badge {
+    display: inline-block;
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: var(--blue);
+    border: 1px solid rgba(0,234,255,0.3);
+    padding: 8px 20px; border-radius: 100px;
+    margin-bottom: 32px;
+    background: rgba(0,234,255,0.06);
+    animation: fadeUp 0.8s ease forwards;
+  }
+
+  .hero-name {
+    font-family: var(--font-display); font-size: clamp(64px, 10vw, 110px);
+    font-weight: 300; line-height: 1;
+    background: linear-gradient(135deg, #fff 0%, var(--lavender) 40%, var(--pink) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+
+  .hero-tagline {
+    font-family: var(--font-display); font-style: italic; font-size: clamp(18px, 3vw, 26px);
+    color: var(--muted); margin-bottom: 12px;
+    animation: fadeUp 0.8s 0.25s ease both;
+  }
+
+  .hero-sub {
+    font-size: 14px; color: rgba(240,234,255,0.4); letter-spacing: 0.05em;
+    margin-bottom: 48px;
+    animation: fadeUp 0.8s 0.35s ease both;
+  }
+
+  .hero-ctas { display:flex; gap:16px; justify-content:center; flex-wrap:wrap;
+    animation: fadeUp 0.8s 0.45s ease both; }
+
+  .btn {
+    font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.12em;
+    text-transform: uppercase; text-decoration: none;
+    padding: 14px 36px; border-radius: 100px; transition: all 0.3s ease;
+    position: relative; overflow: hidden;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--pink), var(--lavender));
+    color: #fff;
+    box-shadow: 0 0 30px rgba(255,110,199,0.35);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 0 50px rgba(255,110,199,0.6);
+    transform: translateY(-2px);
+  }
+  .btn-outline {
+    background: transparent; color: var(--lavender);
+    border: 1px solid rgba(183,148,244,0.4);
+  }
+  .btn-outline:hover {
+    background: rgba(183,148,244,0.1);
+    border-color: var(--lavender);
+    box-shadow: 0 0 30px rgba(183,148,244,0.2);
+    transform: translateY(-2px);
+  }
+
+  /* Scroll indicator */
+  .scroll-hint {
+    position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+    z-index: 2; text-align: center;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .scroll-hint span { font-family:var(--font-mono); font-size:10px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--muted); display:block; margin-bottom:12px; }
+  .scroll-line {
+    width:1px; height:50px; background: linear-gradient(to bottom, var(--lavender), transparent);
+    margin: 0 auto; animation: lineGrow 1.5s ease-in-out infinite;
+  }
+  @keyframes lineGrow { 0%,100%{opacity:0.3;transform:scaleY(1)} 50%{opacity:1;transform:scaleY(1.1)} }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(24px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  /* ─────────────────────────────────────────
+     SHARED SECTION STYLES
+  ───────────────────────────────────────── */
+  .section-inner { max-width: 1200px; margin: 0 auto; padding: 120px 40px; position:relative;z-index:2; }
+
+  .section-label {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--pink);
+    margin-bottom: 12px; display:block;
+  }
+  .section-title {
+    font-family: var(--font-display); font-size: clamp(36px, 6vw, 60px);
+    font-weight: 300; line-height: 1.1;
+    background: linear-gradient(135deg, #fff 0%, var(--lavender) 100%);
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    margin-bottom: 20px;
+  }
+  .section-desc { color: var(--muted); max-width: 600px; font-size: 15px; line-height: 1.8; margin-bottom: 60px; }
+
+  /* Glass card */
+  .glass-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    backdrop-filter: blur(20px);
+    transition: all 0.4s ease;
+  }
+  .glass-card:hover {
+    border-color: rgba(183,148,244,0.45);
+    box-shadow: 0 0 40px rgba(183,148,244,0.12), 0 20px 60px rgba(0,0,0,0.3);
+    transform: translateY(-4px);
+  }
+
+  /* ─────────────────────────────────────────
+     ABOUT
+  ───────────────────────────────────────── */
+  #about { background: linear-gradient(180deg, var(--deep) 0%, #0d0720 100%); }
+
+  .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+
+  .about-story h3 {
+    font-family: var(--font-display); font-size: 28px; font-weight: 400;
+    color: var(--lavender); margin-bottom: 20px;
+  }
+  .about-story p { color: var(--muted); line-height: 1.9; margin-bottom: 16px; font-size: 15px; }
+  .about-story p em { color: var(--pink); font-style: normal; }
+
+  .skills-section { margin-top: 48px; }
+  .skills-title { font-family:var(--font-mono); font-size:11px; letter-spacing:0.15em;
+    text-transform:uppercase; color:var(--blue); margin-bottom:24px; display:block; }
+
+  .skill-bar { margin-bottom: 20px; }
+  .skill-bar-label { display:flex; justify-content:space-between;
+    font-size:13px; color:var(--text); margin-bottom:8px; }
+  .skill-bar-label span:last-child { color:var(--muted); font-family:var(--font-mono); font-size:11px; }
+  .skill-bar-track {
+    height:4px; background:rgba(255,255,255,0.06); border-radius:100px; overflow:hidden;
+  }
+  .skill-bar-fill {
+    height:100%; border-radius:100px;
+    background: linear-gradient(90deg, var(--pink), var(--lavender), var(--blue));
+    box-shadow: 0 0 10px rgba(183,148,244,0.5);
+    animation: fillBar 1.5s ease forwards;
+    transform-origin: left;
+  }
+  @keyframes fillBar { from{width:0} }
+
+  .badges-grid { display:flex; flex-wrap:wrap; gap:10px; margin-top:32px; }
+  .badge {
+    font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em;
+    text-transform: uppercase; padding: 8px 16px; border-radius: 100px;
+    border: 1px solid; transition: all 0.3s;
+  }
+  .badge-pink  { border-color:rgba(255,110,199,0.4); color:var(--pink); background:rgba(255,110,199,0.06); }
+  .badge-lav   { border-color:rgba(183,148,244,0.4); color:var(--lavender); background:rgba(183,148,244,0.06); }
+  .badge-blue  { border-color:rgba(0,234,255,0.4); color:var(--blue); background:rgba(0,234,255,0.06); }
+  .badge:hover { box-shadow:0 0 16px currentColor; transform:scale(1.05); }
+
+  /* Timeline */
+  .timeline { position:relative; padding-left:32px; }
+  .timeline::before {
+    content:''; position:absolute; left:0; top:0; bottom:0;
+    width:1px; background: linear-gradient(to bottom, var(--pink), var(--lavender), transparent);
+  }
+  .timeline-item { position:relative; padding-bottom:40px; }
+  .timeline-item::before {
+    content:''; position:absolute; left:-38px; top:4px;
+    width:12px; height:12px; border-radius:50%;
+    background: linear-gradient(135deg, var(--pink), var(--lavender));
+    box-shadow: 0 0 16px rgba(183,148,244,0.6);
+  }
+  .timeline-year { font-family:var(--font-mono); font-size:10px; color:var(--blue); letter-spacing:0.1em; margin-bottom:6px; }
+  .timeline-role { font-size:15px; font-weight:500; color:var(--text); margin-bottom:4px; }
+  .timeline-org  { font-size:13px; color:var(--pink); margin-bottom:8px; }
+  .timeline-desc { font-size:13px; color:var(--muted); line-height:1.7; }
+
+  /* ─────────────────────────────────────────
+     PROJECTS
+  ───────────────────────────────────────── */
+  #projects { background: var(--deep); }
+
+  .projects-grid { display:grid; grid-template-columns: repeat(2, 1fr); gap: 28px; }
+
+  .project-card {
+    padding: 36px; border-radius: 24px;
+    background: var(--glass); border: 1px solid var(--border);
+    backdrop-filter: blur(20px); position: relative; overflow: hidden;
+    transition: all 0.4s ease; cursor: default;
+  }
+  .project-card::before {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(135deg, rgba(255,110,199,0.04), rgba(183,148,244,0.04), rgba(0,234,255,0.04));
+    opacity:0; transition: opacity 0.4s;
+  }
+  .project-card:hover { transform: translateY(-6px); border-color: rgba(183,148,244,0.5);
+    box-shadow: 0 0 50px rgba(183,148,244,0.15), 0 30px 80px rgba(0,0,0,0.4); }
+  .project-card:hover::before { opacity:1; }
+
+  .project-number {
+    font-family: var(--font-mono); font-size: 11px; color: var(--pink);
+    letter-spacing: 0.15em; margin-bottom: 20px; opacity: 0.6;
+  }
+  .project-icon {
+    width: 56px; height: 56px; border-radius: 16px;
+    background: linear-gradient(135deg, rgba(255,110,199,0.15), rgba(183,148,244,0.15));
+    border: 1px solid rgba(183,148,244,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px; margin-bottom: 24px;
+    box-shadow: 0 0 20px rgba(183,148,244,0.1);
+  }
+  .project-title {
+    font-family: var(--font-display); font-size: 24px; font-weight: 400;
+    color: var(--text); margin-bottom: 12px;
+  }
+  .project-desc { font-size: 14px; color: var(--muted); line-height: 1.8; margin-bottom: 24px; }
+
+  .project-arch {
+    background: rgba(0,0,0,0.25); border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px; padding: 16px; margin-bottom: 24px;
+    font-family: var(--font-mono); font-size: 10px; letter-spacing:0.05em;
+    color: rgba(240,234,255,0.4); line-height: 1.8;
+  }
+  .arch-flow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; }
+  .arch-node {
+    padding: 4px 10px; border-radius: 6px; font-size: 9px;
+    background: rgba(183,148,244,0.08); border: 1px solid rgba(183,148,244,0.2);
+    color: var(--lavender); white-space:nowrap;
+  }
+  .arch-arrow { color: var(--pink); font-size: 12px; }
+
+  .project-tags { display:flex; flex-wrap:wrap; gap:8px; }
+  .project-tag {
+    font-family: var(--font-mono); font-size: 9px; letter-spacing:0.1em; text-transform:uppercase;
+    padding: 5px 12px; border-radius: 100px;
+    background: rgba(0,234,255,0.06); border:1px solid rgba(0,234,255,0.2); color:var(--blue);
+  }
+
+  /* ─────────────────────────────────────────
+     PHOTOGRAPHY
+  ───────────────────────────────────────── */
+  #photography { background: linear-gradient(180deg, var(--deep) 0%, #0f0620 60%, var(--deep) 100%); }
+
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: auto;
+    gap: 16px;
+  }
+
+  .photo-item {
+    position: relative; border-radius: 16px; overflow: hidden;
+    background: var(--glass); border: 1px solid var(--border);
+    aspect-ratio: 4/3; cursor: pointer;
+    transition: all 0.4s ease;
+  }
+  .photo-item:nth-child(1) { grid-column: span 2; aspect-ratio: 16/9; }
+  .photo-item:nth-child(5) { grid-column: span 2; aspect-ratio: 16/9; }
+
+  .photo-placeholder {
+    width:100%; height:100%; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; gap:12px;
+  }
+  /* Unique gradient for each photo tile */
+  .photo-item:nth-child(1) .photo-placeholder { background: linear-gradient(135deg, rgba(255,110,199,0.18),rgba(183,148,244,0.18),rgba(0,234,255,0.1)); }
+  .photo-item:nth-child(2) .photo-placeholder { background: linear-gradient(225deg, rgba(0,234,255,0.15),rgba(183,148,244,0.15)); }
+  .photo-item:nth-child(3) .photo-placeholder { background: linear-gradient(45deg, rgba(183,148,244,0.18),rgba(255,110,199,0.12)); }
+  .photo-item:nth-child(4) .photo-placeholder { background: linear-gradient(135deg, rgba(0,234,255,0.1),rgba(183,148,244,0.2)); }
+  .photo-item:nth-child(5) .photo-placeholder { background: linear-gradient(90deg, rgba(255,110,199,0.12),rgba(0,234,255,0.12),rgba(183,148,244,0.18)); }
+  .photo-item:nth-child(6) .photo-placeholder { background: linear-gradient(315deg, rgba(183,148,244,0.15),rgba(0,234,255,0.1)); }
+
+  .photo-icon { font-size: 32px; opacity: 0.5; }
+  .photo-label { font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--muted); }
+
+  .photo-overlay {
+    position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,5,20,0.95) 0%, transparent 60%);
+    display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 24px; opacity:0; transition: opacity 0.4s;
+  }
+  .photo-item:hover .photo-overlay { opacity:1; }
+  .photo-item:hover {
+    border-color: rgba(183,148,244,0.5);
+    box-shadow: 0 0 40px rgba(183,148,244,0.2), 0 0 80px rgba(255,110,199,0.1);
+    transform: scale(1.01);
+  }
+  .photo-caption { font-family:var(--font-display); font-size:16px; color:#fff; margin-bottom:4px; }
+  .photo-meta { font-family:var(--font-mono); font-size:9px; color:var(--lavender); letter-spacing:0.1em; }
+
+  .instagram-strip {
+    margin-top: 60px; padding: 40px; border-radius: 24px;
+    background: var(--glass); border: 1px solid var(--border);
+    text-align: center; display:flex; align-items:center; justify-content:space-between;
+    flex-wrap:wrap; gap:24px;
+  }
+  .ig-left h3 { font-family:var(--font-display); font-size:28px; font-weight:400; margin-bottom:8px; }
+  .ig-left p  { color:var(--muted); font-size:14px; }
+  .ig-handle  { font-family:var(--font-mono); font-size:14px; color:var(--pink); letter-spacing:0.08em; }
+
+  /* ─────────────────────────────────────────
+     CONTACT
+  ───────────────────────────────────────── */
+  #contact { background: var(--deep); }
+
+  .contact-grid { display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:start; }
+
+  .contact-info h3 { font-family:var(--font-display); font-size:20px; font-weight:400; color:var(--lavender); margin-bottom:16px; }
+  .contact-info p  { color:var(--muted); font-size:14px; line-height:1.9; margin-bottom:32px; }
+
+  .contact-detail { display:flex; align-items:center; gap:12px; margin-bottom:16px; }
+  .contact-detail-icon {
+    width:40px; height:40px; border-radius:12px;
+    background: rgba(183,148,244,0.08); border:1px solid rgba(183,148,244,0.2);
+    display:flex; align-items:center; justify-content:center; font-size:16px; flex-shrink:0;
+  }
+  .contact-detail-text { font-size:14px; color:var(--text); }
+  .contact-detail-sub  { font-size:12px; color:var(--muted); margin-top:2px; }
+
+  .social-icons { display:flex; gap:12px; margin-top:40px; }
+  .social-icon {
+    width:48px; height:48px; border-radius:14px;
+    background: var(--glass); border:1px solid var(--border);
+    display:flex; align-items:center; justify-content:center;
+    font-size:18px; text-decoration:none; color:var(--text);
+    transition: all 0.3s ease;
+  }
+  .social-icon:hover {
+    border-color: var(--pink);
+    box-shadow: 0 0 20px rgba(255,110,199,0.3);
+    transform: translateY(-3px);
+  }
+
+  /* Form */
+  .contact-form { display:flex; flex-direction:column; gap:16px; }
+
+  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+
+  .form-group { display:flex; flex-direction:column; gap:8px; }
+  .form-label { font-family:var(--font-mono); font-size:10px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--muted); }
+  .form-input, .form-textarea {
+    background: rgba(255,255,255,0.04); border: 1px solid rgba(183,148,244,0.2);
+    border-radius: 14px; padding: 14px 18px;
+    color: var(--text); font-family: var(--font-body); font-size: 14px;
+    outline: none; transition: all 0.3s; resize: none;
+  }
+  .form-input:focus, .form-textarea:focus {
+    border-color: var(--lavender);
+    box-shadow: 0 0 20px rgba(183,148,244,0.15);
+    background: rgba(183,148,244,0.05);
+  }
+  .form-input::placeholder, .form-textarea::placeholder { color: rgba(240,234,255,0.25); }
+  .form-textarea { min-height: 140px; }
+
+  .form-submit {
+    padding: 16px 48px; border-radius: 100px; border: none; cursor: pointer;
+    background: linear-gradient(135deg, var(--pink), var(--lavender));
+    color: #fff; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.15em;
+    text-transform: uppercase; transition: all 0.3s; align-self: flex-start;
+    box-shadow: 0 0 30px rgba(255,110,199,0.3);
+  }
+  .form-submit:hover {
+    box-shadow: 0 0 50px rgba(255,110,199,0.5);
+    transform: translateY(-2px);
+  }
+
+  /* ─────────────────────────────────────────
+     FOOTER
+  ───────────────────────────────────────── */
+  footer {
+    padding: 40px 60px; border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px;
+    background: rgba(10,5,20,0.8);
+  }
+  footer p { font-family:var(--font-mono); font-size:10px; color:var(--muted); letter-spacing:0.1em; }
+  .footer-love { color:var(--pink); }
+
+  /* ─────────────────────────────────────────
+     SECTION DIVIDERS / DECORATIONS
+  ───────────────────────────────────────── */
+  .section-glow {
+    position:absolute; pointer-events:none; border-radius:50%;
+    filter:blur(100px); animation: pulse 6s ease-in-out infinite;
+  }
+  @keyframes pulse { 0%,100%{opacity:0.3} 50%{opacity:0.6} }
+
+  /* Responsive */
+  @media (max-width: 900px) {
+    nav { padding: 20px 24px; }
+    .nav-links { gap: 20px; }
+    .about-grid, .contact-grid, .projects-grid { grid-template-columns: 1fr; gap:40px; }
+    .photo-grid { grid-template-columns: 1fr 1fr; }
+    .photo-item:nth-child(1), .photo-item:nth-child(5) { grid-column: span 2; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; text-align: center; }
+  }
+
+  /* Scroll reveal */
+  .reveal { opacity:0; transform:translateY(30px); transition:all 0.8s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* Stats bar */
+  .stats-bar { display:flex; gap:0; border-radius:20px; overflow:hidden; border:1px solid var(--border); margin-top:60px; }
+  .stat-item { flex:1; padding:28px 20px; text-align:center; background:var(--glass);
+    border-right:1px solid var(--border); backdrop-filter:blur(10px); }
+  .stat-item:last-child { border-right:none; }
+  .stat-num { font-family:var(--font-display); font-size:36px; font-weight:300;
+    background:linear-gradient(135deg,var(--pink),var(--lavender)); -webkit-background-clip:text;-webkit-text-fill-color:transparent; }
+  .stat-label { font-family:var(--font-mono); font-size:9px; letter-spacing:0.12em;
+    text-transform:uppercase; color:var(--muted); margin-top:4px; }
+
+  /* divider line */
+  .h-divider { width:60px; height:1px; background:linear-gradient(90deg,var(--pink),var(--lavender),transparent); margin-bottom:32px; }
+</style>
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Kunj Bhasin</div>
+  <ul class="nav-links">
+    <li><a href="#home">Home</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#photography">Lens</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- ══════════════════════════════════════
+     HERO
+══════════════════════════════════════ -->
+<section id="home">
+  <div class="hero-bg"></div>
+
+  <!-- Orbs -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- Particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="hero-content">
+    <div class="hero-badge">Machine Learning Engineer | Real-World AI Systems</div>
+    <h1 class="hero-name">Kunj<br/>Bhasin</h1>
+    <p class="hero-tagline">AI Engineer building intelligent systems</p>
+    <p class="hero-sub">ROS2 · Autoware · Deep Learning · Machine learning · Artificial Intelligence · Autonomous Vehicles</p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn btn-primary">View Projects</a>
+      <a href="#contact" class="btn btn-outline">Contact Me</a>
+    </div>
+  </div>
+  
+
+  <div class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     ABOUT
+══════════════════════════════════════ -->
+<section id="about">
+  <div class="section-glow" style="width:500px;height:500px;background:rgba(183,148,244,0.06);top:-100px;right:-150px;"></div>
+  <div class="section-inner">
+    <span class="section-label reveal">// about</span>
+    <h2 class="section-title reveal">The Mind<br/><em style="font-style:italic;color:var(--lavender)">Behind the Machine</em></h2>
+    <div class="h-divider reveal"></div>
+
+    <div class="about-grid">
+        <!-- LEFT SIDE (TEXT) -->
+        <div class="about-story reveal">
+          <h3>Hello, I'm Kunj.</h3>
+      
+          <p>I'm an <em>AI & ML Engineer</em> with a deep obsession for building intelligent systems that solve real-world problems. My work focuses on machine learning, deep learning, and data-driven applications.</p>
+      
+          <p>From building ML-powered platforms to designing intelligent pipelines, I focus on creating systems that don't just compute — they <em>learn</em>.</p>
+      
+          <p>Beyond coding, I explore creativity through photography — capturing moments with the same precision I use in engineering.</p>
+        </div>
+      
+        <!-- RIGHT SIDE (IMAGE) -->
+        <div class="reveal" style="display:flex; justify-content:center; align-items:center;">
+      
+          <img src="KunjBhasin.jpg" alt="Kunj Bhasin"
+               style="
+                 width:320px;
+                 height:320px;
+                 object-fit:cover;
+                 border-radius:16px;
+                 border:1px solid rgba(183,148,244,0.3);
+                 box-shadow:0 0 40px rgba(183,148,244,0.2),
+                            0 20px 60px rgba(0,0,0,0.4);
+               ">
+      
+        </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PROJECTS
+══════════════════════════════════════ -->
+<section id="projects">
+  <div class="section-glow" style="width:600px;height:400px;background:rgba(255,110,199,0.05);top:200px;left:-200px;"></div>
+  <div class="section-inner">
+    <span class="section-label reveal">// projects</span>
+    <h2 class="section-title reveal">Systems I've<br/><em style="font-style:italic;color:var(--pink)">Engineered</em></h2>
+    <p class="section-desc reveal">Real-world intelligent systems built from first principles — from sensor data to autonomous decisions.</p>
+
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal">
+        <!-- <div class="project-icon">🚗</div> -->
+        <h3 class="project-title">Autonomous Vehicle Stack</h3>
+        <p class="project-desc">A full autonomous driving pipeline built on Autoware Universe and ROS2. Implements localization, perception, prediction, planning, and control for real-world urban navigation scenarios.</p>
+        <div class="project-arch">
+          <div class="arch-flow">
+            <span class="arch-node">LiDAR / Camera</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Sensor Fusion</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">NDT Localization</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Object Detection</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Behavior Planning</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">MPC Controller</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">ROS2</span>
+          <span class="project-tag">Autoware</span>
+          <span class="project-tag">C++</span>
+          <span class="project-tag">LiDAR</span>
+          <span class="project-tag">NDT-SLAM</span>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal">
+        <!-- <div class="project-icon">📷</div> -->
+        <h3 class="project-title">Depth Camera Pipeline</h3>
+        <p class="project-desc">A real-time stereo and RGB-D depth estimation pipeline that generates dense 3D point clouds for robotic perception. Includes camera calibration, disparity estimation, and scene reconstruction modules.</p>
+        <div class="project-arch">
+          <div class="arch-flow">
+            <span class="arch-node">RGB-D Camera</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Calibration</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Stereo Matching</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Depth Map</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">PointCloud3D</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Obstacle Map</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">OpenCV</span>
+          <span class="project-tag">Python</span>
+          <span class="project-tag">RealSense</span>
+          <span class="project-tag">PCL</span>
+          <span class="project-tag">ROS2</span>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card reveal">
+        <!-- <div class="project-number">03 / 04</div>
+        <div class="project-icon">🌌</div> -->
+        <h3 class="project-title">Exoplanet Prediction Platform</h3>
+        <p class="project-desc">A machine learning platform for detecting exoplanet candidates from NASA Kepler telescope light curve data. Employs CNNs and transformer models to classify stellar brightness anomalies with 94% accuracy.</p>
+        <div class="project-arch">
+          <div class="arch-flow">
+            <span class="arch-node">Kepler Data</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Preprocessing</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">CNN Feature Extractor</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Transformer Encoder</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Classification</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Dashboard</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">PyTorch</span>
+          <span class="project-tag">Transformers</span>
+          <span class="project-tag">NASA API</span>
+          <span class="project-tag">Streamlit</span>
+          <span class="project-tag">CUDA</span>
+        </div>
+      </div>
+
+      <!-- Project 4 -->
+      <div class="project-card reveal">
+        <!-- <div class="project-number">04 / 04</div>
+        <div class="project-icon">🏙️</div> -->
+        <h3 class="project-title">Urban Encroachment Detection</h3>
+        <p class="project-desc">A satellite & drone imagery analysis system that detects illegal urban encroachments on public land using temporal change detection and instance segmentation. Deployed for smart city governance initiatives.</p>
+        <div class="project-arch">
+          <div class="arch-flow">
+            <span class="arch-node">Satellite / UAV</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Geo-Registration</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Change Detection</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">YOLO Segmentation</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">GIS Mapping</span>
+            <span class="arch-arrow">→</span>
+            <span class="arch-node">Alert System</span>
+          </div>
+        </div>
+        <div class="project-tags">
+          <span class="project-tag">YOLOv8</span>
+          <span class="project-tag">GDAL</span>
+          <span class="project-tag">Satellite</span>
+          <span class="project-tag">GIS</span>
+          <span class="project-tag">FastAPI</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     PHOTOGRAPHY
+══════════════════════════════════════ -->
+<section id="photography">
+  <div class="section-glow" style="width:500px;height:400px;background:rgba(0,234,255,0.04);bottom:100px;right:-100px;"></div>
+  <div class="section-inner">
+    <span class="section-label reveal">// photography</span>
+    <h2 class="section-title reveal">Through<br/><em style="font-style:italic;color:var(--blue)">My Lens</em></h2>
+    <p class="section-desc reveal">Where engineering precision meets artistic instinct. Every frame is a system — light, geometry, and moment in perfect calibration.</p>
+
+    <div class="photo-grid reveal">
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🌆</span>
+          <span class="photo-label">Urban Architecture</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">City at Dusk</div>
+          <div class="photo-meta">Urban Series · 2024</div>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🌊</span>
+          <span class="photo-label">Motion & Water</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">Long Exposure Flow</div>
+          <div class="photo-meta">Nature Series · 2023</div>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🌸</span>
+          <span class="photo-label">Macro World</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">Botanical Detail</div>
+          <div class="photo-meta">Macro Series · 2024</div>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🌃</span>
+          <span class="photo-label">Night Sky</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">Milky Way Over Hills</div>
+          <div class="photo-meta">Astrophotography · 2023</div>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🛣️</span>
+          <span class="photo-label">Roads & Geometry</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">Lines of Perspective</div>
+          <div class="photo-meta">Abstract Series · 2024</div>
+        </div>
+      </div>
+      <div class="photo-item">
+        <div class="photo-placeholder">
+          <span class="photo-icon">🌺</span>
+          <span class="photo-label">Golden Hour</span>
+        </div>
+        <div class="photo-overlay">
+          <div class="photo-caption">Warm Light Study</div>
+          <div class="photo-meta">Portrait Series · 2023</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="instagram-strip reveal">
+      <div class="ig-left">
+        <h3>Follow the Journey</h3>
+        <p>New frames from the field, the city, and beyond.</p>
+      </div>
+      <div class="ig-handle">@kunj.frames</div>
+      <a href="#" class="btn btn-outline" style="margin:0;">Open Instagram →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════
+     CONTACT
+══════════════════════════════════════ -->
+<section id="contact">
+  <div class="section-glow" style="width:400px;height:400px;background:rgba(255,110,199,0.06);top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="section-inner">
+    <span class="section-label reveal">// contact</span>
+    <h2 class="section-title reveal">Let's Build<br/><em style="font-style:italic;color:var(--lavender)">Something Real</em></h2>
+    <p class="section-desc reveal">Whether it's a collaboration, a question, or just a hello — my inbox is always open. I respond within 24 hours.</p>
+
+    <div class="contact-grid">
+      <div class="reveal">
+        <h3>Get In Touch</h3>
+        <p>I'm open to research collaborations, full-time opportunities in autonomous systems & AI, and interesting conversations about the future of intelligent machines.</p>
+
+        <div class="contact-detail">
+          <div class="contact-detail-icon">✉️</div>
+          <div>
+            <div class="contact-detail-text">kunj.bhasin@email.com</div>
+            <div class="contact-detail-sub">Primary — always monitored</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">📍</div>
+          <div>
+            <div class="contact-detail-text">India</div>
+            <div class="contact-detail-sub">Open to relocation globally</div>
+          </div>
+        </div>
+        <div class="contact-detail">
+          <div class="contact-detail-icon">💼</div>
+          <div>
+            <div class="contact-detail-text">Available for opportunities</div>
+            <div class="contact-detail-sub">Full-time · Contract · Research</div>
+          </div>
+        </div>
+
+        <div class="social-icons">
+          <a href="https://github.com/kunj-16" class="social-icon" title="GitHub">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 21.795 24 17.295 24 12c0-6.63-5.37-12-12-12"/></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/kunj-bhasin-95ba49288/" class="social-icon" title="LinkedIn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://www.instagram.com/__shutter.journey__?igsh=dzBjN3E0NDlpNWRp" class="social-icon" title="Instagram">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">Name</label>
+              <input class="form-input" type="text" placeholder="Your name"/>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Email</label>
+              <input class="form-input" type="email" placeholder="your@email.com"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Subject</label>
+            <input class="form-input" type="text" placeholder="Collaboration / Opportunity / Research"/>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Message</label>
+            <textarea class="form-textarea" placeholder="Tell me about your project, idea, or opportunity..."></textarea>
+          </div>
+          <button class="form-submit">Send Message ✦</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>© 2024 Kunj Bhasin — AI Engineer building intelligent systems</p>
+  <p>Crafted with <span class="footer-love">♥</span> & precision</p>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring   = document.getElementById('cursorRing');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  (function animateCursor(){
+    rx+=(mx-rx)*0.12; ry+=(my-ry)*0.12;
+    cursor.style.transform = `translate(${mx-6}px,${my-6}px)`;
+    ring.style.transform   = `translate(${rx-18}px,${ry-18}px)`;
+    requestAnimationFrame(animateCursor);
+  })();
+
+  // Particles
+  const particlesEl = document.getElementById('particles');
+  const colors=['#ff6ec7','#b794f4','#00eaff'];
+  for(let i=0;i<28;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*4+1;
+    const color=colors[Math.floor(Math.random()*colors.length)];
+    p.style.cssText=`
+      width:${size}px;height:${size}px;
+      background:${color};
+      left:${Math.random()*100}%;
+      bottom:-10px;
+      animation-duration:${Math.random()*15+10}s;
+      animation-delay:${Math.random()*15}s;
+      opacity:${Math.random()*0.6+0.2};
+      box-shadow:0 0 ${size*3}px ${color};
+    `;
+    particlesEl.appendChild(p);
+  }
+
+  // Scroll reveal
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver(entries=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); } });
+  },{threshold:0.12});
+  revealEls.forEach(el=>io.observe(el));
+
+  // Nav active state
+  const sections=document.querySelectorAll('section');
+  const navLinks=document.querySelectorAll('.nav-links a');
+  window.addEventListener('scroll',()=>{
+    let current='';
+    sections.forEach(s=>{ if(scrollY>=s.offsetTop-200) current=s.id; });
+    navLinks.forEach(a=>{ a.style.color=a.getAttribute('href')==='#'+current?'var(--pink)':''; });
+  });
+</script>
+</body>
+</html>
